@@ -1,0 +1,16 @@
+export 'package:flutter_application_2/screens/map_screen.dart';
+export 'package:flutter_application_2/screens/gps_access_screen.dart';
+export 'package:flutter_application_2/screens/jornada.dart';
+export 'package:flutter_application_2/screens/camera_scrren.dart';
+export 'package:flutter_application_2/screens/control_screen.dart';
+export 'package:flutter_application_2/screens/acceso_screen.dart';
+export 'package:flutter_application_2/screens/home_screen.dart';
+export 'package:flutter_application_2/screens/password_screen.dart';
+export 'package:flutter_application_2/screens/login_screen.dart';
+export 'package:flutter_application_2/screens/register_screen.dart';
+export 'package:flutter_application_2/screens/loading_page.dart';
+export 'package:flutter_application_2/screens/loading_screen.dart';
+export 'package:flutter_application_2/screens/list_asist.dart';
+export 'package:flutter_application_2/screens/list_screen.dart';
+export 'package:flutter_application_2/screens/screenCamara.dart';
+export 'package:flutter_application_2/screens/photo_scrren.dart';
