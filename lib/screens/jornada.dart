@@ -391,6 +391,7 @@ class MyStatefulWidget extends StatefulWidget {
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   String dropdownValue = 'Central';
 
+  List<String> datos = ['Central', 'Sur', 'Cerete', 'Norte'];
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -409,7 +410,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             dropdownValue = newValue!;
           });
         },
-        items: <String>['Central', 'Sur', 'Cerete', 'Norte']
+        items: datos
+            // items: <String>['Central', 'Sur', 'Cerete', 'Norte']
             .map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,

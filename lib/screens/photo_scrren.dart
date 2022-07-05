@@ -5,7 +5,7 @@ import 'package:flutter_application_2/provider/provider.dart';
 import 'package:flutter_application_2/screens/screens.dart';
 import 'package:flutter_application_2/services/services.dart';
 import 'package:flutter_application_2/widgets/widgets.dart';
-import 'package:image_picker/image_picker.dart';
+// import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class PhotoScreen extends StatelessWidget {
