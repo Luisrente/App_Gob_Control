@@ -34,14 +34,14 @@ class ControlService extends ChangeNotifier {
   //   return await storage.read(key: 'data') ?? '';
   // }
 
-  Future<bool> asistencia(longitud, latitud, path) async {
+  Future<bool> asistencia(longitud, latitud, path, sede) async {
     Usuario local = Usuario();
     local = await prefe.getUserInfo();
 
     final data = {
-      "nombre": "central",
-      "longitud": -75.88669899927966,
-      "latitud": 8.754952355733181,
+      "nombre": sede,
+      "longitud": longitud,
+      "latitud": latitud,
       "nombre1": local.nombre1,
       "nombre2": local.nombre2,
       "apellido1": local.apellido1,
@@ -56,6 +56,8 @@ class ControlService extends ChangeNotifier {
       "estado": local.estado,
       "verfi": local.verfi
     };
+
+    log('$data');
 
     try {
       final uri = Uri.parse('https://apigob.herokuapp.com/api/control/sede');

@@ -30,10 +30,8 @@ class AppState extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CarnetService()),
         ChangeNotifierProvider(create: (_) => ControlService()),
         ChangeNotifierProvider(create: (_) => UserPrefe()),
-        // ChangeNotifierProvider(create: (_) => UserPrefe()),
-        // ChangeNotifierProvider(create: (_) => InputsDocumentForms()),
+        ChangeNotifierProvider(create: (_) => SedeService()),
         ChangeNotifierProvider(create: (_) => LoginFormProvider()),
-
         ChangeNotifierProvider(create: (_) => JornadaServices()),
       ],
       child: const MyApp(),
@@ -65,6 +63,7 @@ class MyApp extends StatelessWidget {
         'camera': (_) => Home(),
         'qw': (_) => LoginScreenqq(),
       },
+
       scaffoldMessengerKey: NotificationsService.messengerKey,
     );
   }

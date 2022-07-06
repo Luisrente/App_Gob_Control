@@ -144,7 +144,6 @@ class _HomeState extends State<Home> {
                             ],
                           ),
                         ),
-
                         SizedBox(height: 30),
                         Padding(
                           padding: const EdgeInsets.symmetric(
@@ -163,28 +162,7 @@ class _HomeState extends State<Home> {
                             ],
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: DropdownButtonFormField<String>(
-                              value: 'central',
-                              items: const [
-                                DropdownMenuItem(
-                                    value: 'central',
-                                    child: Text('Sede Central')),
-                                DropdownMenuItem(
-                                    value: 'sur', child: Text('Sede Sur')),
-                                DropdownMenuItem(
-                                    value: 'norte', child: Text('Sede Norte')),
-                                DropdownMenuItem(
-                                    value: 'cerete',
-                                    child: Text('Sede Cerete')),
-                              ],
-                              onChanged: (value) {
-                                print(value);
-                                // this.sede = value!;
-                              }),
-                        ),
-
+                        MyStatefulWidget(),
                         Form(
                           key: loginForm.formKey,
                           child: MaterialButton(
@@ -219,7 +197,7 @@ class _HomeState extends State<Home> {
                                       try {
                                         final location =
                                             state.lastKnownLocation!;
-                                        final longitud = location.latitude;
+                                        final longitud = location.longitude;
                                         final latitud = location.longitude;
                                         if (controller != null) {
                                           //check if contrller is not null
@@ -228,11 +206,14 @@ class _HomeState extends State<Home> {
                                             image =
                                                 await controller!.takePicture();
                                             String? path = image?.path;
+                                            String sede = loginForm.isList;
+
+                                            log('.llll-----Zdddddd--->$sede');
                                             try {
                                               final controlnOk =
                                                   await controlService
                                                       .asistencia(longitud,
-                                                          latitud, path);
+                                                          latitud, path, sede);
                                               if (controlnOk) {
                                                 // TODO: Conectar a nuestro socket server
                                                 // Navigator.pushReplacementNamed(
@@ -272,82 +253,7 @@ class _HomeState extends State<Home> {
                                       }
                                     }),
                         ),
-
-                        // MyStatefulWidget(),
                         SizedBox(height: 5),
-                        // ElevatedButton.icon(
-
-                        //   onPressed: () async {
-                        //     try {
-                        //       // final location = state.lastKnownLocation!;
-                        //       // final lat = location.latitude;
-                        //       // final lon = location.longitude;
-                        //       // final controlnOk =
-                        //       //     await controlService.asistencia(path);
-                        //       // if (controlnOk) {
-                        //       //   // TODO: Conectar a nuestro socket server
-                        //       //   Navigator.pushReplacementNamed(
-                        //       //       context, 'check');
-                        //       // } else {
-                        //       //   // Mostara alerta
-                        //       //   return mostrarAlerta(
-                        //       //       context,
-                        //       //       'Datos incorrectos',
-                        //       //       'Por favor verifique los datos');
-                        //       // }
-                        //       final location = state.lastKnownLocation!;
-                        //       final longitud = location.latitude;
-                        //       final latitud = location.longitude;
-                        //       if (controller != null) {
-                        //         //check if contrller is not null
-                        //         if (controller!.value.isInitialized) {
-                        //           //check if controller is initialized
-                        //           image = await controller!.takePicture();
-                        //           String? path = image?.path;
-                        //           try {
-                        //             final controlnOk = await controlService
-                        //                 .asistencia(longitud, latitud, path);
-                        //             if (controlnOk) {
-                        //               // TODO: Conectar a nuestro socket server
-                        //               // Navigator.pushReplacementNamed(
-                        //               //     context, 'check');
-                        //               Navigator.pushReplacement(
-                        //                   context,
-                        //                   PageRouteBuilder(
-                        //                       pageBuilder: (_, __, ___) =>
-                        //                           const HomeScreen(),
-                        //                       transitionDuration:
-                        //                           const Duration(
-                        //                               milliseconds: 0)));
-                        //             } else {
-                        //               // Mostara alerta
-                        //               return mostrarAlerta(
-                        //                   context,
-                        //                   'Datos incorrectos',
-                        //                   'Por favor verifique los datos');
-                        //             }
-                        //           } catch (e) {
-                        //             print(e);
-                        //           }
-                        //           //capture image
-                        //           setState(() {
-                        //             //update UI
-                        //           });
-                        //         }
-                        //       }
-                        //     } catch (e) {
-                        //       print(e);
-                        //     }
-                        //   },
-                        //   icon: const Icon(
-                        //     Icons.check_sharp,
-                        //     size: 35.0,
-                        //   ),
-                        //   label: const Text(
-                        //     'Aceptar',
-                        //     style: TextStyle(fontSize: 20),
-                        //   ),
-                        // )
                       ],
                     ),
                   ),
@@ -431,3 +337,61 @@ BoxDecoration cardBordes() => BoxDecoration(
         boxShadow: const [
           BoxShadow(color: Colors.black12, offset: Offset(0, 3), blurRadius: 10)
         ]);
+
+class MyStatefulWidget extends StatefulWidget {
+  const MyStatefulWidget({Key? key}) : super(key: key);
+
+  @override
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+}
+
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  @override
+  Widget build(BuildContext context) {
+    final sedeService = Provider.of<SedeService>(context);
+    final loginForm = Provider.of<LoginFormProvider>(context);
+
+    return Container(
+        padding: const EdgeInsets.all(8.0),
+        child: FutureBuilder<List<String>>(
+            future: sedeService.listsede(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                late List<String> nombre;
+                nombre = snapshot.data!;
+                String dropdownValue = nombre[0];
+                return Container(
+                  child: DropdownButton<String>(
+                    value: dropdownValue,
+                    icon: const Icon(Icons.arrow_downward),
+                    elevation: 16,
+                    style: const TextStyle(color: Colors.blue, fontSize: 25),
+                    underline: Container(
+                      height: 2,
+                      color: Colors.deepPurpleAccent,
+                    ),
+                    onChanged: (String? newValue) {
+                      log('------>${newValue}');
+                      loginForm.isList = newValue!;
+                      setState(() {
+                        dropdownValue = newValue;
+                      });
+                    },
+                    items: nombre
+                        // items: <String>['Central', 'Sur', 'Cerete', 'Norte']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(color: Colors.black12),
+                );
+              }
+            }));
+  }
+}

@@ -8,3 +8,4 @@ export 'package:flutter_application_2/services/notications_service.dart';
 
 export 'package:flutter_application_2/services/carnet_services.dart';
 export 'package:flutter_application_2/services/control_service.dart';
+export 'package:flutter_application_2/services/sede.dart';

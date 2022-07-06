@@ -1,6 +1,6 @@
 export 'package:flutter_application_2/screens/map_screen.dart';
 export 'package:flutter_application_2/screens/gps_access_screen.dart';
-export 'package:flutter_application_2/screens/jornada.dart';
+// export 'package:flutter_application_2/screens/jornada.dart';
 export 'package:flutter_application_2/screens/camera_scrren.dart';
 export 'package:flutter_application_2/screens/control_screen.dart';
 export 'package:flutter_application_2/screens/acceso_screen.dart';

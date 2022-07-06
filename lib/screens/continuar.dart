@@ -31,12 +31,12 @@ class ContinuoScreen extends StatelessWidget {
               late List<CameraDescription> cameras;
               cameras = await availableCameras();
               firstCamera = cameras[1];
-              Navigator.pushReplacement(
-                  context,
-                  PageRouteBuilder(
-                      pageBuilder: (_, __, ___) =>
-                          TakePictureScreen(camera: firstCamera),
-                      transitionDuration: const Duration(seconds: 0)));
+              // Navigator.pushReplacement(
+              //     context,
+              //     PageRouteBuilder(
+              //         pageBuilder: (_, __, ___) =>
+              //             TakePictureScreen(camera: firstCamera),
+              //         transitionDuration: const Duration(seconds: 0)));
             },
             icon: Icon(Icons.abc),
             label: Text('Continuar')),

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/models/models.dart';
 import 'package:flutter_application_2/screens/screens.dart';
@@ -106,3 +108,45 @@ class ListAssitScreen extends StatelessWidget {
         ));
   }
 }
+
+// class MyStatefulWidget extends StatefulWidget {
+//   const MyStatefulWidget({Key? key}) : super(key: key);
+
+//   @override
+//   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+// }
+
+// class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+//   String dropdownValue = 'Central';
+
+//   List<String> datos = ['Central', 'Sur', 'Cerete', 'Norte'];
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       child: DropdownButton<String>(
+//         value: dropdownValue,
+//         icon: const Icon(Icons.arrow_downward),
+//         elevation: 16,
+//         style: const TextStyle(color: Colors.deepPurple),
+//         underline: Container(
+//           height: 2,
+//           color: Colors.deepPurpleAccent,
+//         ),
+//         onChanged: (String? newValue) {
+//           log('------>${newValue}');
+//           setState(() {
+//             dropdownValue = newValue!;
+//           });
+//         },
+//         items: datos
+//             // items: <String>['Central', 'Sur', 'Cerete', 'Norte']
+//             .map<DropdownMenuItem<String>>((String value) {
+//           return DropdownMenuItem<String>(
+//             value: value,
+//             child: Text(value),
+//           );
+//         }).toList(),
+//       ),
+//     );
+//   }
+// }
