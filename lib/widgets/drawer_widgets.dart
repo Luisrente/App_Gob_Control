@@ -128,17 +128,17 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       onTap: () async {
                         // Usuario dato = await prefe.getUserInfo();
 
-                        if (dato1.dependencia == 'Visitante') {
-                          print('${dato1.dependencia}');
-                        } else {
-                          Navigator.pushReplacement(
-                              context,
-                              PageRouteBuilder(
-                                  pageBuilder: (_, __, ___) => LoadingScreen(),
-                                  // pageBuilder: (_, __, ___) => LoadingScreen(),
-                                  transitionDuration:
-                                      const Duration(seconds: 0)));
-                        }
+                        // if (dato1.dependencia == 'Visitante') {
+                        //   print('${dato1.dependencia}');
+                        // } else {
+                        Navigator.pushReplacement(
+                            context,
+                            PageRouteBuilder(
+                                pageBuilder: (_, __, ___) => LoadingScreen(),
+                                // pageBuilder: (_, __, ___) => LoadingScreen(),
+                                transitionDuration:
+                                    const Duration(seconds: 0)));
+                        // }
 
                         // Navigator.pushReplacement(
                         //     context,
@@ -154,18 +154,17 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       title: "Registro Asistencia",
                       selected: false,
                       onTap: () {
-                        if (dato1.dependencia == 'Visitante') {
-                          print('${dato1.dependencia}');
-                        } else {
-                          Navigator.pushReplacement(
-                              context,
-                              PageRouteBuilder(
-                                  pageBuilder: (_, __, ___) =>
-                                      ListAssitScreen(),
-                                  // pageBuilder: (_, __, ___) => LoadingScreen(),
-                                  transitionDuration:
-                                      const Duration(seconds: 0)));
-                        }
+                        // if (dato1.dependencia == 'Visitante') {
+                        //   print('${dato1.dependencia}');
+                        // } else {
+                        Navigator.pushReplacement(
+                            context,
+                            PageRouteBuilder(
+                                pageBuilder: (_, __, ___) => ListAssitScreen(),
+                                // pageBuilder: (_, __, ___) => LoadingScreen(),
+                                transitionDuration:
+                                    const Duration(seconds: 0)));
+                        // }
                       },
                     ),
                     DrawerNavigationItem(
@@ -173,18 +172,18 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       title: "Sedes",
                       selected: false,
                       onTap: () {
-                        if (dato1.dependencia == 'Visitante') {
-                          print('${dato1.dependencia}');
-                        } else {
-                          Navigator.pushReplacement(
-                              context,
-                              PageRouteBuilder(
-                                  pageBuilder: (_, __, ___) =>
-                                      ListAssitScreen(),
-                                  // pageBuilder: (_, __, ___) => LoadingScreen(),
-                                  transitionDuration:
-                                      const Duration(seconds: 0)));
-                        }
+                        // if (dato1.dependencia == 'Visitante') {
+                        //   print('${dato1.dependencia}');
+                        // } else {
+                        //   Navigator.pushReplacement(
+                        //       context,
+                        //       PageRouteBuilder(
+                        //           pageBuilder: (_, __, ___) =>
+                        //               ListAssitScreen(),
+                        //           // pageBuilder: (_, __, ___) => LoadingScreen(),
+                        //           transitionDuration:
+                        //               const Duration(seconds: 0)));
+                        // }
                         // Navigator.pushReplacement(
                         //     context,
                         //     PageRouteBuilder(

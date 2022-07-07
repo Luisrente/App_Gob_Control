@@ -1,11 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
-// import 'package:gobernacion/data/encryption.dart';
-// import 'package:gobernacion/models/models.dart';
-// import 'package:gobernacion/provider/provider.dart';
-// import 'package:gobernacion/services/services.dart';
-// import 'package:gobernacion/ui/screen/screen.dart';
+import 'package:flutter_application_2/dd/login_form_provider.dart';
+import 'package:flutter_application_2/provider/provider.dart';
+
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_application_2/data/encryption.dart';
 import 'package:flutter_application_2/models/models.dart';
@@ -13,7 +11,8 @@ import 'package:flutter_application_2/screens/screens.dart';
 import 'package:flutter_application_2/services/services.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../provider/provider.dart';
+// import '../provider/provider.dart';
+import '../helpers/show_alert.dart';
 import '../widgets/widgets.dart';
 
 class ControlScreen extends StatelessWidget {
@@ -21,6 +20,7 @@ class ControlScreen extends StatelessWidget {
 
   void displayDialono(BuildContext context) {
     final carnetservice = Provider.of<CarnetService>(context, listen: false);
+
     showDialog(
         barrierDismissible: false,
         context: context,
@@ -122,11 +122,11 @@ class ControlScreen extends StatelessWidget {
     final EncryptionService encryptionService = new EncryptionService();
     //  final CheckInternetConnection conexion = new CheckInternetConnection();
     //  final con = conexion.internetStatus();
-
-    final loginForm = InputsDocumentForms();
+    final loginFormm = InputsDocumentForms();
     // final loginForm = Provider.of<InputsDocumentForms>(context);
     final carnetservice = Provider.of<CarnetService>(context);
     // final authService = Provider.of<AuthService>(context, listen: false);
+    final loginForm = Provider.of<LoginFormProvider>(context);
 
     // final carnetservice = CarnetService();
     final authService = AuthService();
@@ -247,61 +247,128 @@ class ControlScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Form(
-                      key: loginForm.formKey1,
+                      key: loginFormm.formKey1,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       child: Column(children: [
                         const SizedBox(height: 30),
+
+                        // TextFormField(
+                        //   autofocus: true,
+                        //   keyboardType: TextInputType.number,
+                        //   decoration: InputDecorations.authInputDecoration(
+                        //       hinText: '12134',
+                        //       labelText: 'Numero de identificacion'),
+                        //   onChanged: (value) => loginForm.documento = value,
+                        // ),
+
                         TextFormField(
                           autofocus: true,
+                          // initialValue: '${product.price}',
+                          // inputFormatters: [
+                          //   FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\.?\d{0,2}'))
+                          // ],
+                          // onChanged: (value) {
+                          //   if (double.tryParse(value) == null) {
+                          //     // product.price = 0;
+                          //   } else {
+                          //     // product.price = double.parse(value);
+                          //   }
+                          // },
                           keyboardType: TextInputType.number,
                           decoration: InputDecorations.authInputDecoration(
                               hinText: '12134',
                               labelText: 'Numero de identificacion'),
                           onChanged: (value) => loginForm.documento = value,
                         ),
+
                         const SizedBox(height: 30),
                       ])),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                    child: Center(
-                      child: ElevatedButton.icon(
-                          icon: const Icon(Icons.search),
-                          style: ElevatedButton.styleFrom(
-                              shape: const StadiumBorder(),
-                              primary: Colors.orange),
-                          onPressed: loginForm.isLoading
-                              ? null
-                              : () async {
-                                  FocusScope.of(context).unfocus();
-                                  print('entryyyyyyyyo');
-                                  // final authService= Provider.of<AuthService>(context, listen:false);
-                                  if (!loginForm.isValidForm()) return;
 
-                                  print('paso por aaqui ');
-                                  loginForm.isLoading = true;
-                                  //Validar si el login es correc
-                                  final Usuario scans = await carnetservice
-                                      .loadCarstAdmin(loginForm.documento);
-                                  //               if(scans.documento==null){
-                                  //                 loginForm.isLoading= false;
-                                  //                   displayDialono(context);
-                                  //                   }else{
-                                  //                   loginForm.isLoading= false;
-                                  //                   // displayDialog(context,scans);
-                                  //                       Navigator.pushReplacement(context, PageRouteBuilder(
-                                  //                 pageBuilder: ( _ , __ , ___) => const AccesoScreen(),
-                                  //                 transitionDuration: const Duration( seconds: 0)
-                                  //               ));
-                                  // //Navigator.of(context).pushReplacementNamed('home');
+                  MaterialButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25)),
+                      disabledColor: Colors.grey,
+                      elevation: 0,
+                      color: Color.fromARGB(255, 2, 116, 208),
+                      child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 70, vertical: 15),
+                          child: Padding(
+                            padding: const EdgeInsets.all(6.0),
+                            child: Text(
+                              loginForm.isLoading ? 'Espere...' : 'Ingresar',
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 16),
+                            ),
+                          )),
+                      onPressed: loginForm.isLoading
+                          ? null
+                          : () async {
+                              // FocusScope.of(context).unfocus();
+                              if (!loginFormm.isValidForm()) return;
+                              print('paso por aaqui ');
+                              loginForm.isLoading = true;
+                              //Validar si el login es correc
+                              final Usuario scans = await carnetservice
+                                  .loadCarstAdmin(loginForm.documento);
+                              if (scans.documento == null) {
+                                loginForm.isLoading = false;
 
-                                  //     // Navigator.pushNamed(context, 'acceso');
-                                  //     // Navigator.pushReplacementNamed(context, 'home');
-                                  //     }
-                                },
-                          label: const Text('Consultar ',
-                              style: TextStyle(fontSize: 20))),
-                    ),
-                  ),
+                                return mostrarAlerta(
+                                    context,
+                                    'Datos incorrectos',
+                                    'Por favor verifique los datos');
+                                // displayDialono(context);
+
+                              } else {
+                                loginForm.isLoading = false;
+                                // displayDialog(context,scans);
+                                Navigator.pushReplacement(
+                                    context,
+                                    PageRouteBuilder(
+                                        pageBuilder: (_, __, ___) =>
+                                            AccesoScreen(user: scans),
+                                        transitionDuration:
+                                            const Duration(seconds: 0)));
+                              }
+                            }),
+
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(vertical: 20),
+                  //   child: Center(
+                  //     child: ElevatedButton.icon(
+                  //         icon: const Icon(Icons.search),
+                  //         style: ElevatedButton.styleFrom(
+                  //             shape: const StadiumBorder(),
+                  //             primary: Colors.orange),
+                  //         onPressed: loginForm.isLoading
+                  //             ? null
+                  //             : () async {
+                  //                 if (!loginForm.isValidForm()) return;
+                  //                 print('paso por aaqui ');
+                  //                 loginForm.isLoading = true;
+                  //                 //Validar si el login es correc
+                  //                 final Usuario scans = await carnetservice
+                  //                     .loadCarstAdmin(loginForm.documento);
+                  //                 if (scans.documento == null) {
+                  //                   loginForm.isLoading = false;
+                  //                   displayDialono(context);
+                  //                 } else {
+                  //                   loginForm.isLoading = false;
+                  //                   // displayDialog(context,scans);
+                  //                   Navigator.pushReplacement(
+                  //                       context,
+                  //                       PageRouteBuilder(
+                  //                           pageBuilder: (_, __, ___) =>
+                  //                               AccesoScreen(user: scans),
+                  //                           transitionDuration:
+                  //                               const Duration(seconds: 0)));
+                  //                 }
+                  //               },
+                  //         label: const Text('Consultar ',
+                  //             style: TextStyle(fontSize: 20))),
+                  //   ),
+                  // ),
                 ],
               )),
         ),
@@ -324,8 +391,33 @@ class ControlScreen extends StatelessWidget {
                   NotificationsService.showSnackbar(
                       'Codigo QR Invalido encryption');
                 } else {
+                  loginForm.isLoading = true;
+
+                  //  final Usuario scans = await carnetservice
+                  //                 .loadCarstAdmin(loginForm.documento);
+
                   Usuario scans = await carnetservice.loadCarstAdmin(
                       await encryptionService.descrypData(barcodeScanRes));
+                  if (scans.documento == null) {
+                    loginForm.isLoading = false;
+
+                    return mostrarAlerta(context, 'Datos incorrectos',
+                        'Por favor verifique los datos');
+                    // displayDialono(context);
+
+                  } else {
+                    loginForm.isLoading = false;
+                    // displayDialog(context,scans);
+                    Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                            pageBuilder: (_, __, ___) =>
+                                AccesoScreen(user: scans),
+                            transitionDuration: const Duration(seconds: 0)));
+                  }
+
+                  // Usuario scans = await carnetservice.loadCarstAdmin(
+                  //     await encryptionService.descrypData(barcodeScanRes));
                   if (scans.documento == null) {
                     displayDialono(context);
                   } else {

@@ -5,6 +5,8 @@ import 'package:flutter_application_2/dd/auth_background.dart';
 import 'package:flutter_application_2/dd/input_decorations.dart';
 import 'package:flutter_application_2/screens/card_container.dart';
 import 'package:flutter_application_2/services/services.dart';
+import 'package:flutter_application_2/widgets/dropdownButton.dart';
+import 'package:flutter_application_2/widgets/widgets.dart';
 // import 'package:gob_cordoba/services/auth_service.dart';
 // import 'package:gob_cordoba/services/carnet_services.dart';
 // import 'package:gob_cordoba/services/notications_service.dart';
@@ -156,60 +158,39 @@ class _Login_Form extends StatelessWidget {
   }
 }
 
-class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({Key? key}) : super(key: key);
+// class MyStatefulWidget extends StatefulWidget {
+//   const MyStatefulWidget({Key? key}) : super(key: key);
 
-  @override
-  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
-}
+//   @override
+//   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+// }
 
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  @override
-  Widget build(BuildContext context) {
-    final sedeService = Provider.of<SedeService>(context);
-    final loginForm = Provider.of<LoginFormProvider>(context);
+// class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+//   String dropdownValue = 'One';
 
-    return Container(
-        padding: const EdgeInsets.all(8.0),
-        child: FutureBuilder<List<String>>(
-            future: sedeService.listsede(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                late List<String> nombre;
-                nombre = snapshot.data!;
-                String dropdownValue = nombre[0];
-                return Container(
-                  child: DropdownButton<String>(
-                    value: dropdownValue,
-                    icon: const Icon(Icons.arrow_downward),
-                    elevation: 16,
-                    style: const TextStyle(color: Colors.blue, fontSize: 25),
-                    // underline: Container(
-                    //   height: 2,
-                    //   color: Colors.deepPurpleAccent,
-                    // ),
-                    onChanged: (String? newValue) {
-                      log('------>${newValue}');
-                      loginForm.isList = newValue!;
-                      setState(() {
-                        dropdownValue = newValue;
-                      });
-                    },
-                    items: nombre
-                        // items: <String>['Central', 'Sur', 'Cerete', 'Norte']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-                );
-              } else {
-                return const Center(
-                  child: CircularProgressIndicator(color: Colors.black12),
-                );
-              }
-            }));
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return DropdownButton<String>(
+//       value: dropdownValue,
+//       icon: const Icon(Icons.arrow_downward),
+//       elevation: 16,
+//       style: const TextStyle(color: Colors.deepPurple),
+//       underline: Container(
+//         height: 2,
+//         color: Colors.deepPurpleAccent,
+//       ),
+//       onChanged: (String? newValue) {
+//         setState(() {
+//           dropdownValue = newValue!;
+//         });
+//       },
+//       items: <String>['One', 'Two', 'Free', 'Four']
+//           .map<DropdownMenuItem<String>>((String value) {
+//         return DropdownMenuItem<String>(
+//           value: value,
+//           child: Text(value),
+//         );
+//       }).toList(),
+//     );
+//   }
+// }

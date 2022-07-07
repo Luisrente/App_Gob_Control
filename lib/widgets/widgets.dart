@@ -19,3 +19,5 @@ export 'package:flutter_application_2/widgets/cart_widget.dart';
 export 'package:flutter_application_2/widgets/input_decorations.dart';
 
 export 'package:flutter_application_2/widgets/drawer_widgets.dart';
+
+export 'package:flutter_application_2/screens/screens.dart';

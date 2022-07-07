@@ -39,9 +39,9 @@ class ControlService extends ChangeNotifier {
     local = await prefe.getUserInfo();
 
     final data = {
-      "nombre": sede,
-      "longitud": longitud,
-      "latitud": latitud,
+      "nombre": '$sede',
+      "longitud": '$longitud',
+      "latitud": '$latitud',
       "nombre1": local.nombre1,
       "nombre2": local.nombre2,
       "apellido1": local.apellido1,

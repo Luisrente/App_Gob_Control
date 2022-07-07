@@ -5,6 +5,8 @@ import 'package:flutter_application_2/provider/provider.dart';
 import 'package:flutter_application_2/screens/screens.dart';
 import 'package:flutter_application_2/services/services.dart';
 import 'package:flutter_application_2/widgets/widgets.dart';
+import 'package:image_picker/image_picker.dart';
+// import 'package:photo_gallery/photo_gallery.dart';
 // import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -127,7 +129,18 @@ class PhotoScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
                 child: Boton(
                   text: 'Ingrerse',
-                  onPressed: () {},
+                  onPressed: () async {
+                    final picker = new ImagePicker();
+                    final XFile? image =
+                        await picker.pickImage(source: ImageSource.gallery);
+
+                    // if (pickedFile == null) {
+                    //   print('No selecciono nada');
+                    //   return;
+                    // }
+                    // final Medium medium = await PhotoGallery.getMedium(
+                    //     mediumId: "10", mediumType: MediumType.image);
+                  },
                 ),
               ),
               TextButton.icon(

@@ -45,8 +45,7 @@ class LoadingScreenLogin extends StatelessWidget {
     } else {
       dato = await prefe.getUserInfo();
       log('--->${dato.estado}');
-
-      if (dato.estado == 'false') {
+      if (dato.estado == 'FALSO') {
         log('---fffkgkgk>${dato.estado}');
         Navigator.pushReplacement(
             context,

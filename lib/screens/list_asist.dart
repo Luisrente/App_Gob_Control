@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/dd/login_form_provider.dart';
 import 'package:flutter_application_2/models/models.dart';
 import 'package:flutter_application_2/screens/screens.dart';
 import 'package:flutter_application_2/services/services.dart';
@@ -18,6 +19,7 @@ class ListAssitScreen extends StatelessWidget {
 
     DateTime now = new DateTime.now();
     DateTime date = new DateTime(now.year, now.month, now.day);
+    final loginForm = Provider.of<LoginFormProvider>(context);
 
     print('${date}');
     int mon = now.month;
@@ -92,7 +94,27 @@ class ListAssitScreen extends StatelessWidget {
                           }),
                     )),
               ),
-              TextButton.icon(
+
+              SizedBox(
+                height: 50,
+              ),
+              MaterialButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25)),
+                  disabledColor: Colors.grey,
+                  elevation: 0,
+                  color: Color.fromARGB(255, 2, 116, 208),
+                  child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 70, vertical: 15),
+                      child: Padding(
+                        padding: const EdgeInsets.all(6.0),
+                        child: Text(
+                          loginForm.isLoading ? 'Espere...' : 'Ingresar',
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 16),
+                        ),
+                      )),
                   onPressed: () {
                     Navigator.pushReplacement(
                         context,
@@ -100,9 +122,18 @@ class ListAssitScreen extends StatelessWidget {
                             pageBuilder: (_, __, ___) =>
                                 ListScreen(month: month),
                             transitionDuration: const Duration(seconds: 0)));
-                  },
-                  icon: Icon(Icons.construction),
-                  label: Text("CONSULTAR"))
+                  }),
+              // TextButton.icon(
+              //     onPressed: () {
+              //       Navigator.pushReplacement(
+              //           context,
+              //           PageRouteBuilder(
+              //               pageBuilder: (_, __, ___) =>
+              //                   ListScreen(month: month),
+              //               transitionDuration: const Duration(seconds: 0)));
+              //     },
+              //     icon: Icon(Icons.construction),
+              //     label: Text("CONSULTAR"))
             ],
           ),
         ));
