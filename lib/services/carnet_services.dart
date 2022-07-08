@@ -183,33 +183,78 @@ class CarnetService extends ChangeNotifier {
   //   }
   // }
 
-  Future<String?> uploadImage(String? path) async {
-    Usuario dato1 = Usuario();
-    dato1 = await prefe.getUserInfo();
-    this.selectedProduct.img = path;
-    this.newPictureFile = File.fromUri(Uri(path: path));
-    if (this.newPictureFile == null) return null;
-    this.isSaving = true;
-    // notifyListeners();
-    final url = Uri.parse(
-        'https://apigob.herokuapp.com/api/uploads/usuarios/${dato1.id}');
-    final imageUploadRequest = http.MultipartRequest('PUT', url);
+  Future<bool> uploadImage(String? path) async {
+    try {
+      Usuario dato1 = Usuario();
+      dato1 = await prefe.getUserInfo();
+      this.selectedProduct.img = path;
+      this.newPictureFile = File.fromUri(Uri(path: path));
+      log('-----paso1--->------->');
+      // if (this.newPictureFile == null) return false;
+      // this.isSaving = true;
 
-    final file =
-        await http.MultipartFile.fromPath('archivo', newPictureFile!.path);
-    imageUploadRequest.files.add(file);
-    final streamResponse = await imageUploadRequest.send();
-    final resp = await http.Response.fromStream(streamResponse);
+      log('-----paso--2->------->');
 
-    if (resp.statusCode != 200 && resp.statusCode != 201) {
-      print('Algo salio mal');
-      print(resp.body);
-      return null;
+      // notifyListeners();
+      final url = Uri.parse(
+          'https://apigob.herokuapp.com/api/uploads/usuarios/${dato1.id}');
+      final imageUploadRequest = http.MultipartRequest('PUT', url);
+      log('-----paso--->---3---->');
+
+      final file =
+          await http.MultipartFile.fromPath('archivo', newPictureFile!.path);
+      imageUploadRequest.files.add(file);
+      final streamResponse = await imageUploadRequest.send();
+      final resp = await http.Response.fromStream(streamResponse);
+      log('-----paso--->---4---->');
+
+      log('$resp');
+      if (resp.statusCode != 200 && resp.statusCode != 201) {
+        log('-----paso--->--5----->');
+
+        print('Algo salio mal');
+        NotificationsService.showSnackbar("Error en el cargue de la imagen");
+        print(resp.body);
+        return false;
+      } else {
+        return true;
+      }
+
+      notifyListeners();
+      this.newPictureFile = null;
+      // final decodedData = json.decode(resp.body);
+      // return decodedData['secure_url'];
+    } catch (e) {
+      log('$e');
     }
-    notifyListeners();
-    this.newPictureFile = null;
-    final decodedData = json.decode(resp.body);
-    return decodedData['secure_url'];
+    return false;
+
+    // Usuario dato1 = Usuario();
+    // dato1 = await prefe.getUserInfo();
+    // this.selectedProduct.img = path;
+    // this.newPictureFile = File.fromUri(Uri(path: path));
+    // if (this.newPictureFile == null) return false;
+    // this.isSaving = true;
+    // // notifyListeners();
+    // final url = Uri.parse(
+    //     'https://apigob.herokuapp.com/api/uploads/usuarios/${dato1.id}');
+    // final imageUploadRequest = http.MultipartRequest('PUT', url);
+    // final file =
+    //     await http.MultipartFile.fromPath('archivo', newPictureFile!.path);
+    // imageUploadRequest.files.add(file);
+    // final streamResponse = await imageUploadRequest.send();
+    // final resp = await http.Response.fromStream(streamResponse);
+    // log('$resp');
+    // if (resp.statusCode != 200 && resp.statusCode != 201) {
+    //   print('Algo salio mal');
+    //   NotificationsService.showSnackbar("Error en el cargue de la imagen");
+    //   print(resp.body);
+    //   return false;
+    // } else {}
+    // notifyListeners();
+    // this.newPictureFile = null;
+    // final decodedData = json.decode(resp.body);
+    // return decodedData['secure_url'];
   }
 
   // void updateSelectedProductImage(String? path) {

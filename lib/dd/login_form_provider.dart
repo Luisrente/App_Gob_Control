@@ -16,6 +16,14 @@ class LoginFormProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool _isLoadingPhoto = true;
+  bool get isLoadingPhoto => _isLoadingPhoto;
+
+  set isLoadingPhoto(bool value) {
+    _isLoadingPhoto = value;
+    notifyListeners();
+  }
+
   String _isList = 'Central';
   String get isList => _isList;
 

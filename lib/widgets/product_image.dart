@@ -19,7 +19,7 @@ class ProductImage extends StatelessWidget {
             decoration: _buildBoxDecoration(),
             height: tamano.height * 0.2,
             width: tamano.width * 0.35,
-            child: getImage('')),
+            child: getImage(url!)),
         // child: getImage(url!)),
       ),
     );

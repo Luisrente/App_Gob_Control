@@ -24,8 +24,8 @@ class CardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final carnetservice = Provider.of<CarnetService>(context);
-    final carnetservice = CarnetService();
+    final carnetservice = Provider.of<CarnetService>(context);
+    // final carnetservice = CarnetService();
 
     final EncryptionService encryptionService = new EncryptionService();
     // String documentId = dato.document!;
